@@ -8,7 +8,7 @@ class HandleRequests(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        time.sleep(3)
+        time.sleep(1)
         # Fixed HTML nesting: </h2> should come before </center>
         # Encoded the string to bytes directly
         message = "<html><head><title>First Python Application</title></head><body style='color: #333; margin-top: 30px;'><center><h2>Welcome to our first Python application.</h2></center></body></html>"
