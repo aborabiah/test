@@ -1,7 +1,8 @@
 import http.server
 from prometheus_client import start_http_server, Counter
 
-REQUEST_COUNT = Counter("app_requests_counts", "Total HTTP of requests")
+REQUEST_COUNT = Counter("app_requests_counts", "Total HTTP of requests", ['python_custom_app', 'endpoint'])
+
 class HandleRequests(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/favicon.ico':
@@ -11,7 +12,8 @@ class HandleRequests(http.server.BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        REQUEST_COUNT.inc()
+        #REQUEST_COUNT.inc()
+        REQUEST_COUNT.labels('python_custom_app', self.path).inc()
         # Fixed HTML nesting: </h2> should come before </center>
         # Encoded the string to bytes directly
         message = "<html><head><title>First Python Application</title></head><body style='color: #333; margin-top: 30px;'><center><h2>Welcome to our first Python application.</h2></center></body></html>"
