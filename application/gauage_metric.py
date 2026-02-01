@@ -1,10 +1,12 @@
 import http.server
+import time
 from prometheus_client import start_http_server, Gauge
 REQUEST_IN_PROGRESS = Gauge("app_requests_in_progress", "Number of requests currently being processed")
 
 class HandleRequests(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         REQUEST_IN_PROGRESS.inc()
+        time.sleep(5)
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
