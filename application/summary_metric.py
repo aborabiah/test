@@ -1,6 +1,6 @@
 import http.server
 from prometheus_client import start_http_server, Summary
-
+import time
 REQUEST_LATENCY_TIME=Summary("app_request_latency_time", "Request latency time")
 class HandleRequests(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
