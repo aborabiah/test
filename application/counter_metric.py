@@ -4,6 +4,10 @@ from prometheus_client import start_http_server, Counter
 REQUEST_COUNT = Counter("app_requests_counts", "Total HTTP of requests")
 class HandleRequests(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
+        if self.path == '/favicon.ico':
+            self.send_response(404)
+            self.end_headers()
+            return
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
