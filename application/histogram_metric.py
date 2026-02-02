@@ -1,7 +1,7 @@
 import http.server
 from prometheus_client import start_http_server, Histogram
 import time
-REQUEST_LATENCY_TIME=Histogram("app_request_latency_time", "Request latency time")
+REQUEST_LATENCY_TIME=Histogram("app_request_latency_time", "Request latency time",buckets=[0.1,0.5,1,2,5,10])
 class HandleRequests(http.server.BaseHTTPRequestHandler):
     @REQUEST_LATENCY_TIME.time()
     def do_GET(self):
